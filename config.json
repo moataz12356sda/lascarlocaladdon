@@ -1,7 +1,7 @@
 {
-  "name": "localaddon",
+  "name": "lascarlocaladdon",
   "version": "1.0",
-  "slug": "localaddon",
+  "slug": "lascarlocaladdon",
   "description": "localdatabase v2 gateway on local database home assistant",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
@@ -23,7 +23,7 @@
     "measurement": "str"
   },
   "ports": {
-    "3000/tcp": 2000
+    "2000/tcp": 2000
   },
   "map": [
     "ssl:rw",
