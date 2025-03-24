@@ -8,8 +8,8 @@ import socket
 from datetime import date
 
 from influxdb import InfluxDBClient
-import PyCRC
-from PyCRC.crc import CRC
+# import PyCRC
+# from PyCRC.crc import CRC
 
 #from influxdb_client import InfluxDBClient, Point, WritePrecision #Token
 #from influxdb_client.client.write_api import SYNCHRONOUS #Token
@@ -28,15 +28,22 @@ response2 = ''
 #DATABASE_IP = '192.168.0.100'
 #measurement = "Tzone"
 
-DATABASE_PORT = '8086'
-USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
-PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
-INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
-INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
-DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
-measurement = str(open("config/measurement.txt", "r").read()).strip()
+with open('/data/options.json', 'r') as config_file:    config = json.load(config_file)
+DATABASE_PORT = config.get('database_port', '8086')  # Default to '8086' if not set
+USERNAME_DATABASE = config.get('username_database', 'default_username')
+PASSWORD_DATABASE = config.get('password_database', 'default_password')
+INTERNAL_BACKUP_DATABASE_NAME = config.get('internal_backup_database_name', 'default_backup_db')
+INTERNAL_DATABASE_NAME = config.get('internal_database_name', 'default_internal_db')
+DATABASE_IP = config.get('database_ip', '127.0.0.1')
+measurement = config.get('measurement', 'default_measurement')
 
-
+# DATABASE_PORT = '8086'
+# USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
+# PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
+# INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
+# INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
+# DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
+# measurement = str(open("config/measurement.txt", "r").read()).strip()
 def ConvertKSA (packet) :
     hour = packet[46:48]
     print(int(hour, 16))
